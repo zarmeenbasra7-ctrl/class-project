@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Bank Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>🩸 LifeLine</h2>
+    <p>Blood Bank System</p>
+
+    <nav>
+        <a href="#" onclick="showPage('dashboard')">Dashboard</a>
+        <a href="#" onclick="showPage('donors')">Donor Registration</a>
+        <a href="#" onclick="showPage('search')">Search Donors</a>
+        <a href="#" onclick="showPage('donations')">Record Donation</a>
+        <a href="#" onclick="showPage('stock')">Blood Stock</a>
+        <a href="#" onclick="showPage('hospitals')">Hospitals</a>
+        <a href="#" onclick="showPage('requests')">Blood Requests</a>
+    </nav>
+</div>
+
+<div class="main">
+
+    <header>
+        <h1>Blood Bank Management System</h1>
+        <span>Admin Panel</span>
+    </header>
+
+    <section id="dashboard" class="page">
+        <h2>Welcome to LifeLine</h2>
+        <p>Donate Blood, Save Lives!</p>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Total Donors</h3>
+                <h1 id="donorCount">0</h1>
+            </div>
+
+            <div class="card">
+                <h3>Total Donations</h3>
+                <h1 id="donationCount">0</h1>
+            </div>
+
+            <div class="card">
+                <h3>Blood Units</h3>
+                <h1 id="unitCount">0</h1>
+            </div>
+
+            <div class="card">
+                <h3>Pending Requests</h3>
+                <h1 id="pendingCount">0</h1>
+            </div>
+        </div>
+    </section>
+
+    <section id="donors" class="page hidden">
+        <h2>Donor Registration</h2>
+
+        <form id="donorForm">
+            <input id="donorName" placeholder="Full Name" required>
+
+            <select id="bloodGroup" required>
+                <option value="">Select Blood Group</option>
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+                <option>O+</option>
+                <option>O-</option>
+            </select>
+
+            <input id="donorAge" type="number" placeholder="Age" required>
+            <input id="donorCity" placeholder="City" required>
+            <input id="donorPhone" placeholder="Phone Number" required>
+
+            <button type="submit">Register Donor</button>
+        </form>
+
+        <h3>Registered Donors</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Blood Group</th>
+                    <th>Age</th>
+                    <th>City</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody id="donorTable"></tbody>
+        </table>
+    </section>
+
+    <section id="search" class="page hidden">
+        <h2>Search Donors</h2>
+        <input id="searchInput" placeholder="Search by name, city or blood group">
+        <button onclick="searchDonors()">Search</button>
+        <div id="searchResults"></div>
+    </section>
+
+    <section id="donations" class="page hidden">
+        <h2>Record Blood Donation</h2>
+
+        <form id="donationForm">
+            <input id="donationDonor" placeholder="Donor Name" required>
+            <select id="donationGroup" required>
+                <option value="">Select Blood Group</option>
+                <option>A+</option><option>A-</option>
+                <option>B+</option><option>B-</option>
+                <option>AB+</option><option>AB-</option>
+                <option>O+</option><option>O-</option>
+            </select>
+            <input id="donationUnits" type="number" min="1" placeholder="Units" required>
+            <input id="donationDate" type="date" required>
+            <button type="submit">Save Donation</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Donor</th>
+                    <th>Blood Group</th>
+                    <th>Units</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="donationTable"></tbody>
+        </table>
+    </section>
+
+    <section id="stock" class="page hidden">
+        <h2>Blood Stock</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Blood Group</th>
+                    <th>Available Units</th>
+                </tr>
+            </thead>
+            <tbody id="stockTable"></tbody>
+        </table>
+    </section>
+
+    <section id="hospitals" class="page hidden">
+        <h2>Hospital Registration</h2>
+
+        <form id="hospitalForm">
+            <input id="hospitalName" placeholder="Hospital Name" required>
+            <input id="hospitalCity" placeholder="City" required>
+            <input id="hospitalPhone" placeholder="Contact Number" required>
+            <button type="submit">Add Hospital</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Hospital</th>
+                    <th>City</th>
+                    <th>Contact</th>
+                </tr>
+            </thead>
+            <tbody id="hospitalTable"></tbody>
+        </table>
+    </section>
+
+    <section id="requests" class="page hidden">
+        <h2>Blood Requests</h2>
+
+        <form id="requestForm">
+            <input id="requestHospital" placeholder="Hospital Name" required>
+
+            <select id="requestGroup" required>
+                <option value="">Select Blood Group</option>
+                <option>A+</option><option>A-</option>
+                <option>B+</option><option>B-</option>
+                <option>AB+</option><option>AB-</option>
+                <option>O+</option><option>O-</option>
+            </select>
+
+            <input id="requestUnits" type="number" min="1" placeholder="Required Units" required>
+            <button type="submit">Submit Request</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+         
+                    <th>Hospital</th>
+                    <th>Blood Group</th>
+                    <th>Units</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="requestTable"></tbody>
+        </table>
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
